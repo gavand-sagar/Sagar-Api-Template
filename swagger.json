@@ -1,0 +1,367 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/nationality": {
+      "get": {
+        "operationId": "ApiTemplateController_getAllNationality",
+        "summary": "Get nationality (Basic GET Method).",
+        "description": "Retrieves all the nationalities",
+        "parameters": [
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "description": "Parameter for searching the nationalities",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nationality list retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Nationality"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBadReq"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IForbiddenReq"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cannot GET API"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInternalServer"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error occured",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDefaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Api Template"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/all-vessels": {
+      "get": {
+        "operationId": "ApiTemplateController_getVesselList",
+        "summary": "Get Vessels (Paginated GET Method).",
+        "description": "Retrieves all the vessel names in the dropdown",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "required": false,
+            "in": "query",
+            "description": "Page Number",
+            "example": "1",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "PageSize",
+            "required": false,
+            "in": "query",
+            "description": "The number of items to return",
+            "example": "100",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "SearchText",
+            "required": false,
+            "in": "query",
+            "description": "Search the vessels",
+            "example": "Seaways Yosemite",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of vessels in a dropdown is retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VesselLookup"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBadReq"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IForbiddenReq"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cannot GET API"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInternalServer"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error occured",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDefaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Api Template"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "HealthController_checkReadiness",
+        "summary": "Health ready.",
+        "description": "This endpoint gives the readiness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Health status readiness response"
+          },
+          "default": {
+            "description": "This is default response"
+          }
+        },
+        "tags": [
+          "readiness-liveliness"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "operationId": "HealthController_checkLiveness",
+        "summary": "Health live.",
+        "description": "This endpoint gives the liveliness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The application is live"
+          },
+          "default": {
+            "description": "The application is live."
+          }
+        },
+        "tags": [
+          "readiness-liveliness"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "APP NAME",
+    "description": "VPlatform API Template",
+    "version": "1.0.0",
+    "contact": {
+      "name": "VPlatform Dev Team",
+      "url": "https://vgrouplimited.com/",
+      "email": "dev.vplatform@vships.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "API Template",
+      "description": "Template"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:3030",
+      "description": "Local server url"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "IBadReq": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "The parameter must be of the given type"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "IForbiddenReq": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Forbidden Resource"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "IInternalServer": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Internal server error"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "IDefaultResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "This is an error message"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "Nationality": {
+        "type": "object",
+        "properties": {
+          "NatId": {
+            "type": "string",
+            "example": "ATG"
+          },
+          "NatDescription": {
+            "type": "string",
+            "example": "Antiguan"
+          }
+        },
+        "required": [
+          "NatId",
+          "NatDescription"
+        ]
+      },
+      "VesselLookup": {
+        "type": "object",
+        "properties": {
+          "VesselId": {
+            "type": "string",
+            "example": "D90200019732"
+          },
+          "VesselName": {
+            "type": "string",
+            "example": "SEAWAYS ARIAL"
+          },
+          "IMOnumber": {
+            "type": "string",
+            "example": "SA000001"
+          },
+          "COY_ID": {
+            "type": "string",
+            "example": "SA01"
+          }
+        },
+        "required": [
+          "VesselId",
+          "VesselName",
+          "IMOnumber",
+          "COY_ID"
+        ]
+      }
+    }
+  }
+}
